@@ -55,6 +55,47 @@ jobs:
         fail_on_error: true
 ```
 
+### Part 3 / Techdemo
+**There are different types of Static Application Security Testing (SAST).** 
+- Scanning the dependencies list for libraries with known vulnerabilities
+- Analysing the code searching for common patterns (similar as anti-virus scanner do) or exposed secrets
+- Analysis of whole Docker Containers and the software contained in it
+
+Snyk is a tool to do SAST. It analyzes the dependencies vulnerabilities.
+
+#### Workflow setup
+This could also be executed on a scheduled basis. In this example it is only triggered manually. The tokens/secrets need to be setup because an account for Snyk is needed.
+
+See [repository](https://github.com/DatepollSystems/water-level-monitor-backend)
+
+```yml
+name: SAST using Snyk
+
+on: [ workflow_dispatch ]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle-jdk17@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        with:
+          args: --all-sub-projects
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Upload Scan result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
+```
+
+#### Result of action
+![](img/tech1.png)
+![](img/tech2.png)
+
 ### Questions
 **Wann können Workflows ausgelöst werden?**
 
@@ -88,6 +129,8 @@ strategy:
         os: [ ubuntu-latest, macos-latest ] 
         java_version: [ 11, 17, 19 ]
 ```
+
+
 
 ## Exercise 2
 ### Part 1
@@ -164,3 +207,4 @@ jobs:
 
 ![](img/Picture14.png)
 ![](img/Picture15.png)
+
