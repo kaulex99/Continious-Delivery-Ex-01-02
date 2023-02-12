@@ -1,0 +1,47 @@
+### Maven
+# General
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+### Java
+# Compiled class file
+*.class
+# Log file
+*.log
+
+### IntelliJ
+# if you are using pom.xml Intellij will use pom.xml for first usage and generates iml file and idea directory
+# General
+.idea/
+out/
+*.iml
+
+### Eclipse
+# General
+.project
+.classpath
+.settings/
+build/
+
+### Visual Studio
+# General
+.vscode
+
+### Apple MacOS
+# General
+.DS_Store
+# Thumbnails
+._*
+# might appear in the root of a volume
+.Spotlight-V100
+.TemporaryItems
+.Trashes
