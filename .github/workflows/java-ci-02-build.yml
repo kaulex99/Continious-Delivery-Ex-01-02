@@ -22,6 +22,7 @@ jobs:
           name: Package
           path: staging
   docker-release:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
