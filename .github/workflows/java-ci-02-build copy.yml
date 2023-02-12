@@ -1,0 +1,22 @@
+name: Java CI 02 for deploy artifacts
+run-name: ${{ github.actor }} will deploy artifacts 🚀
+on: [pull_request]
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 19
+      uses: actions/setup-java@v3
+      with:
+        java-version: '19'
+        distribution: 'adopt'
+    - name: Build with Maven
+      run: mvn --batch-mode --update-snapshots package
+    - name: Move artifacts
+      run: mkdir staging && cp target/*.jar staging
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Package
+        path: staging
